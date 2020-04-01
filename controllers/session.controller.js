@@ -4,13 +4,16 @@ exports.hello =  function(req, res){
     console.log("Hello World")
 }
 
-exports.createSession = async (req, res) => {
-    let token = "NO RESPONDIDO"
-    try{
-        token = await spotify.getToken()
-    }catch(err){
+exports.createSession = (req, res) => {
+    spotify.getToken().then((response) => {
+        return spotify.createPlaylist(response.data.access_token);
+    }).then((data) => {
+        console.log('Playlist creada')
+        console.log(data)
+        return res.status(200).send({message:'Playlist created'})
+    }).catch((err) => {
+        console.log('Ha habido un error')
         console.log(err)
-        token ="ERROR GRANDE"
-    }
-    res.send(token)
+        return res.status(500).send({message:'Internal server error'})
+    });
 }

@@ -1,27 +1,37 @@
 const CREDS = 'NzkwMzc2ZmU1Njg4NGI1N2E5OGRmNjE0ODVkOTExMGU6N2M2N2YyMjRkZjdlNGY3ZjgwMjEwZTUxYzMxNjBhZDU='
 const axios = require('axios')
+const qs = require('querystring')
 const API = 'https://api.spotify.com/v1/'
 const APIplaylists = API + 'playlists/'
 const APIsearch = API + 'search/'
+const uId = 'luispozo_'
 
 /*
  * MANAGING AUTH
  */
-exports.getToken = async () => {
-    let result= null
-    try{
-        result = await axios.post(
-            'https://accounts.spotify.com/api/token',
-            {'grant_type':'client_credentials'},
-            {'Authoritation': `Basic ${CREDS}`,
-            'Content-Type': 'application/x-www-form-urlencoded'}
-        )
-    }
-    catch(err){
-        console.log(err)
-        result = 'FALLO'
-    }
-    return result
+exports.getToken = () => {
+    return new Promise((resolve, reject) => {
+        let data = {
+            grant_type:'client_credentials'
+        }
+        let options = {
+            headers:{
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': ' Basic ' + CREDS,
+            }
+        }
+        axios.post(
+                'https://accounts.spotify.com/api/token',
+                qs.stringify(data),
+                options
+            ).then((data) => {
+                resolve(data)
+            }).catch((err) => {
+                console.log(err)
+                reject(err)
+            })
+    });
+
 }
 
 /*
@@ -60,13 +70,30 @@ exports.getPlaylist = async (pId) => {
         url:`${APIplaylists}${pId}`
     })
 }
-exports.createPlaylist = async (token) => {
-    axios({
-        method: 'post',
-        url: `${API}user/${uId}/playlists`,
-        data: {
+exports.createPlaylist = (token) => {
+    return new Promise((resolve, reject) => {
+        let data = {
+            name:'isPartiFyPOSTMAN',
+            public:true
         }
-    });
+        let options = {
+            headers:{
+                'Authorization': `Bearer {${token}}`,
+                'Content-Type':'application/json'
+            }
+        }
+        return axios.post(
+        `${API}users/{${uId}}/playlists`,
+            qs.stringify(data),
+            options
+        ).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            console.log(err)
+            reject(err)
+        });
+    })
+
 }
 
 /*
