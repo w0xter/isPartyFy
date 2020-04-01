@@ -1,0 +1,62 @@
+@font-face {
+    font-family: Aileron-Regular;
+    font-weight: 400;
+    src: url("./assets/fonts/aileron/Aileron-Regular.otf") format("opentype");
+}
+@font-face {
+    font-family: 'Aileron-Heavy';
+    font-weight: 400;
+    src: url("./assets/fonts/aileron/Aileron-Heavy.otf") format("opentype");
+}
+body{
+    font-family: 'Aileron-Regular';
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Aileron-Heavy';
+}
+.sec{
+    color: #1f1f24!important;
+}
+.secBg{
+    background-color: #1f1f24!important;
+}
+.prin{
+    color: #ffde59!important;
+}
+.yellowBg{
+    background-color: #ffde59!important;
+}
+.purple{
+    color: #8c52ff!important;
+}
+.purpleBg{
+    background: #8c52ff!important;
+}
+.fullScreenSection{
+    min-height: 100vh;
+    height: 100%;
+}
+.inheritBg{
+    background: inherit!important;
+}
+a{
+ color: inherit!important;
+ transition: 0.3s;
+}
+a:hover{
+    text-decoration:underline!important;
+}
+.logo{
+    font-family: 'Zilla Slab';
+    font-weight: 700!important;
+}
+.ispButtonOutline{
+    background: inherit!important;
+    border: 1px solid #ffde59!important;
+    color: #ffde59!important;
+    transition: 0.3s;
+}
+.ispButtonOutline:hover{
+    background: #ffde59!important;
+    color: #8c52ff!important;
+}
